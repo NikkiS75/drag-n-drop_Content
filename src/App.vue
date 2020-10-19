@@ -1,17 +1,33 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <div id="app container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <ControlPanel/>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-md-3">
+          <ContainerList/>
+        </div>
+        <div class="col-md-9">
+          <WorkArea/>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import WorkArea from "./components/WorkArea";
+import ControlPanel from "./components/ControlPanel";
+import ContainerList from "./components/ContainerList";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ControlPanel,
+    ContainerList,
+    WorkArea
   }
 }
 </script>
@@ -23,6 +39,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+
 }
 </style>
