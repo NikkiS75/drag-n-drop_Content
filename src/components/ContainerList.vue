@@ -1,7 +1,7 @@
 <template>
     <div class="container-wrap">
         <ul class="container-list">
-            <li class="container-list__item" :class="{ 'active': isActive }" @click="isActive=!isActive">Контейнер</li>
+            <li class="container-list__item"  :class="{ 'active': isActive }" @click="isActive=!isActive">Контейнер</li>
             <li class="container-list__item">Контейнер</li>
             <li class="container-list__item">Контейнер</li>
             <li class="container-list__item">Контейнер</li>
