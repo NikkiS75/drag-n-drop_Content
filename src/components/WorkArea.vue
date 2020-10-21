@@ -1,7 +1,6 @@
 <template>
     <div ref="work" class="work-area">
-        <Container :parentX = "parentX" :parentY = "parentY" :parentWidth = "parentWidth"  />
-        {{parentX}}
+        <Container :container-i-d="index" :parentX = "parentX" :parentY = "parentY" :parentWidth = "parentWidth" v-for="(containers, index) of getAllContainers" :key="index" :item = "containers"/>
     </div>
 </template>
 
@@ -17,12 +16,19 @@
             return{
             parentX : 0,
             parentY: 0,
+            parentWidth: 0
             }
         },
         mounted() {
             const positions = this.$refs.work.getBoundingClientRect();
             this.parentX = Math.round(positions.x);
             this.parentY = Math.round(positions.y);
+            this.parentWidth = Math.round(positions.width);
+        },
+        computed: {
+            getAllContainers(){
+                return this.$store.getters.getAllContainers
+            }
         }
 
     }
@@ -31,5 +37,6 @@
 <style>
    .work-area{
        position: relative;
+       height: 100%;
    }
 </style>

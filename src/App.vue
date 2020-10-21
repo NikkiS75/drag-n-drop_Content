@@ -1,5 +1,6 @@
 <template>
-  <div id="app container-fluid">
+  <div id="app">
+    <div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <ControlPanel/>
@@ -14,6 +15,7 @@
         </div>
       </div>
     </div>
+    </div>
 </template>
 
 <script>
@@ -21,6 +23,7 @@
 import WorkArea from "./components/WorkArea";
 import ControlPanel from "./components/ControlPanel";
 import ContainerList from "./components/ContainerList";
+import './plugins/bootstrap'
 
 export default {
   name: 'App',
