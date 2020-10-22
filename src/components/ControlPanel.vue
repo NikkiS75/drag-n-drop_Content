@@ -2,13 +2,13 @@
 <div class="control-wrap">
     <ul class="control-list">
         <li class="control-list__item">
-            <button type="button" @click="backContainer" class="btn button__backward"><i class="fas fa-undo"></i></button>
+            <button type="button"  class="btn button__backward" @click="backContainer"><i class="fas fa-undo"></i></button>
         </li>
         <li class="control-list__item">
-            <button type="button" class="btn button__forward"><i class="fas fa-redo"></i></button>
+            <button type="button" class="btn button__forward"  @click="forwardContainer" ><i class="fas fa-redo"></i></button>
         </li>
         <li class="control-list__item">
-            <button type="button" class="btn button__save"><i class="far fa-save"></i></button>
+            <button type="button" class="btn button__save"  @click="saveContainer"><i class="far fa-save"></i></button>
         </li>
         <li class="control-list__item">
             <button type="button" class="btn button__add" @click="createContainer"><i class="fas fa-plus"></i></button>
@@ -26,13 +26,29 @@
         methods:{
             createContainer(){
                 const container = {
-                    content: 'dkjcbdjbc',
-                    movements: [],
-                    coords:{
-                        X:undefined,
-                        Y:undefined
+                    currentContent: {
+                        type: '',
+                        link: '',
+                        file: File
                     },
-                    history:[]
+                    coords:{
+                        X:0,
+                        Y:0
+                    },
+                    visible:true,
+                    history:[
+                        {point:{
+                            X:0,
+                            Y:0,
+                            content:{
+                              type: '',
+                              link: '',
+                                file: File
+                                },
+                                visible:true
+                            },
+                        }
+                    ]
                 }
                 this.$store.dispatch('addContainer', {container: container})
             },
@@ -41,6 +57,12 @@
             },
             backContainer(){
                 this.$store.dispatch('backContainer', this.$store.getters.getActiveContainer)
+            },
+            forwardContainer(){
+                this.$store.dispatch('forwardContainer', this.$store.getters.getActiveContainer)
+            },
+            saveContainer(){
+                this.$store.dispatch('saveContainer', this.$store.getters.getActiveContainer)
             }
         },
 
