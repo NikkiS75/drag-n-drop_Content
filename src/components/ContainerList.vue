@@ -1,7 +1,7 @@
 <template>
     <div class="container-wrap">
         <ul class="container-list">
-            <li  class="container-list__item" ref="listItem" :class="{ 'active': getActiveContainer == index}"  @click="active(index)" v-for="(container, index) of getAllContainers" :key="index" :item="container">Контейнер {{index + 1}}</li>
+            <li  class="container-list__item" ref="listItem" :class="{ 'active': getActiveContainer == index, 'dnone' : container.visible == false}"  @click="active(index)" v-for="(container, index) of getAllContainers" :key="index" :item="container">Контейнер {{index + 1}}</li>
         </ul>
     </div>
 </template>

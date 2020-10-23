@@ -10,28 +10,37 @@
             <form ref="form" @submit.stop.prevent="handleSubmit">
                 <b-form-group
                         :state="nameState"
-                        label="Text"
+                        label="Текст"
                         label-for="text"
                         invalid-feedback="Вы не ввели текст"
                         v-if="content.type=='text'"
-
                 >
                     <b-form-textarea
                             id="text"
                             rows="3"
-                            v-model="content.text"
+                            v-model="content.url"
                             :state="nameState"
                             required
                     ></b-form-textarea>
                 </b-form-group>
+                <b-form-group v-if="content.type=='img'">
                 <b-form-file
-                        v-if="content.type=='img'"
                         ref="file"
-                        placeholder="Choose a file or drop it here..."
-                        drop-placeholder="Drop file here..."
-                        @change="getFile()"
+                        placeholder="Выберите картинку..."
+                        drop-placeholder="Перетащите картинку сюда..."
+                        @input="getFile()"
                 ></b-form-file>
-                <div class="mt-3">Selected file: {{ file ? file.name : '' }}</div>
+                <div class="mt-3">Выбранный файл: {{ file ? file.name : '' }}</div>
+                </b-form-group>
+                <b-form-group v-if="content.type=='video'">
+                    <b-form-file
+                            ref="file"
+                            placeholder="Выберите видео..."
+                            drop-placeholder="Перетащите видео сюда..."
+                            @input="getFile()"
+                    ></b-form-file>
+                    <div class="mt-3">Выбранный файл: {{ file ? file.name : '' }}</div>
+                </b-form-group>
             </form>
         </div>
     </b-modal>
@@ -43,10 +52,11 @@
         data:() => ( {
                 content: {
                     type: 'text',
-                    text: URL,
+                    url: '',
                 },
             file:[],
                 nameState: null,
+            text2: ''
         }),
         props:['modalID'],
         computed:{
@@ -64,7 +74,7 @@
                 return valid
             },
             resetModal() {
-                this.content.text = ''
+                this.content.url = ''
                 this.nameState = null
             },
             Submit(e) {
@@ -82,14 +92,13 @@
             },
             getFile() {
                 this.file = this.$refs.file.files[0]
-                // const reader = new FileReader
-                // console.log(reader)
-                // reader.onload = function (e) {
-                //     this.text = e.target.result
-                // }
-                // reader.readAsDataURL(this.file)
-                this.content.text = window.URL.createObjectURL(this.file)
-                console.log(this.content.text)
+                const reader = new FileReader
+                console.log(reader)
+                reader.onload = e => {
+                    this.content.url = e.target.result
+                    console.log(this.content.url)
+                }
+                reader.readAsDataURL(this.file)
                 }
             }
         }

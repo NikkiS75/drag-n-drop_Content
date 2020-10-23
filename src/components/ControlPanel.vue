@@ -2,13 +2,13 @@
 <div class="control-wrap">
     <ul class="control-list">
         <li class="control-list__item">
-            <button type="button"  class="btn button__backward" @click="backContainer"><i class="fas fa-undo"></i></button>
+            <button :disabled="containers[index].counter==0" type="button"  class="btn button__backward" @click="backContainer"><i class="fas fa-undo"></i></button>
         </li>
         <li class="control-list__item">
-            <button type="button" class="btn button__forward"  @click="forwardContainer" ><i class="fas fa-redo"></i></button>
+            <button :disabled="containers[index].counter == containers[index].history.length-1"   type="button" class="btn button__forward"  @click="forwardContainer" ><i class="fas fa-redo"></i></button>
         </li>
         <li class="control-list__item">
-            <button type="button" class="btn button__save"  @click="saveContainer"><i class="far fa-save"></i></button>
+            <button  type="button" :disabled="containers[index].counter==0" class="btn button__save"  @click="saveContainer"><i class="far fa-save"></i></button>
         </li>
         <li class="control-list__item">
             <button type="button" class="btn button__add" @click="createContainer"><i class="fas fa-plus"></i></button>
@@ -29,21 +29,24 @@
                     currentContent: {
                         type: '',
                         link: '',
-                        file: File
                     },
                     coords:{
                         X:0,
                         Y:0
                     },
+                    width:200,
+                    height:200,
+                    counter:0,
                     visible:true,
                     history:[
                         {point:{
                             X:0,
                             Y:0,
+                            width:200,
+                            height:200,
                             content:{
                               type: '',
                               link: '',
-                                file: File
                                 },
                                 visible:true
                             },
@@ -65,6 +68,14 @@
                 this.$store.dispatch('saveContainer', this.$store.getters.getActiveContainer)
             }
         },
+        computed:{
+            containers(){
+                return this.$store.getters.getAllContainers
+            },
+            index(){
+                return this.$store.getters.getActiveContainer
+            }
+        }
 
     }
 </script>
